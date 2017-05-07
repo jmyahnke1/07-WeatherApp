@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="weatherApp">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Weather Application</title>
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="bower_components/toastr/toastr.css" />
+  <!-- endbower -->
+
+  <!-- inject:css -->
+  <link rel="stylesheet" href="/app/styles/style.css">
+  <!-- endinject -->
+</head>
+
+<body class="container" ng-controller="WeatherController as wcVM">
+  <div class="jumbotron">
+    <h1>Origin Weather Application</h1>
+    <p>Weather cheerfully delivered straight to your computational unit!</p>
+  </div>
+
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary" ng-repeat="btn in wcVM.buttonList" ng-bind="btn" ng-click="wcVM.refreshCity(btn)"></button>
+  </div>
+  <div id="buttonInputDiv">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Enter a city..." ng-model="wcVM.searchCity">
+      <span class="input-group-btn">
+         <button class="btn btn-default" type="button" ng-click="wcVM.updateCity()">Find</button>
+         <button class="btn btn-default" type="button" ng-click="wcVM.toggleTemp()" ng-bind="wcVM.tempFlag"></button>
+       </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">City Information</h3>
+        </div>
+        <div class="panel-body">
+          <h1 class="text-center" ng-bind="wcVM.city"></h1>
+          <h4 class="text-center" ng-bind="wcVM.latlon"></h4>
+          <hr />
+          <div class="row">
+            <div class=col-md-4>
+              <h4 class="text-center">Temperature ({{wcVM.tempFlag}})</h4>
+              <h3 class="text-center text-success" ng-bind="wcVM.temp"></h3>
+            </div>
+            <div class=col-md-4>
+              <h4 class="text-center">Pressure</h4>
+              <h3 class="text-center text-success" ng-bind="wcVM.pressure"></h3>
+            </div>
+            <div class=col-md-4>
+              <h4 class="text-center">Humidity</h4>
+              <h3 class="text-center text-success" ng-bind="wcVM.humidity"></h3>
+            </div>
+            <div class=col-md-4>
+              <h4 class="text-center">Lowest Temp ({{wcVM.tempFlag}})</h4>
+              <h3 class="text-center text-success" ng-bind="wcVM.minTemp"></h3>
+            </div>
+            <div class=col-md-4>
+              <h4 class="text-center">Highest Temp ({{wcVM.tempFlag}})</h4>
+              <h3 class="text-center text-success" ng-bind="wcVM.maxTemp"></h3>
+            </div>
+            <div class=col-md-4>
+              <h4 class="text-center">Wind Speed</h4>
+              <h3 class="text-center text-success" ng-bind="wcVM.windSpeed"></h3>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Search History</h3>
+        </div>
+        <div class="panel-body">
+          <table class="table table-striped">
+            <tr ng-repeat="item in wcVM.list">
+              <td>
+                <p ng-bind="item.name"></p>
+              </td>
+              <td>
+                <p id="pRight" ng-bind="item.date"></p>
+                <p id="pRight" ng-bind="item.time"></p>
+              </td>
+            </tr>
+
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!--  row -->
+
+
+  <!-- bower:js -->
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/toastr/toastr.js"></script>
+  <!-- endbower -->
+
+  <!-- inject:js -->
+  <script src="/app/app.js"></script>
+  <script src="/app/weather.controller.js"></script>
+  <script src="/app/weather.factory.js"></script>
+  <!-- endinject -->
+</body>
+
+</html>
